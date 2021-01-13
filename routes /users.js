@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../config");
 
+//GET
 router.get("/", (req, res) => {
   connection.query("SELECT * FROM user", (err, results) => {
     if (err) {
@@ -12,23 +13,25 @@ router.get("/", (req, res) => {
   });
 });
 
-// router.post("/", (req, res) => {
-//   const { playlist_id, title, artist, album_picture, youtube_url } = req.body;
-//   connection.query(
-//     "INSERT INTO track (playlist_id, title, artist, album_picture, youtube_url) VALUES(?,?,?,?,?)",
-//     [playlist_id, title, artist, album_picture, youtube_url],
-//     (err) => {
-//       if (err) {
-//         console.log(err);
-//         res
-//           .status(500)
-//           .send("C'est raté, la musique n'est pas dans la playlist..");
-//       } else {
-//         res.status(200).send("Good job, bonne écoute");
-//       }
-//     }
-//   );
-// });
+
+//POST
+router.post("/", (req, res) => {
+  const { firstname, lastname, email, pasword} = req.body;
+  connection.query(
+    "INSERT INTO user (firstname, lastname, email, pasword) VALUES(?,?,?,?)",
+    [firstname, lastname, email, pasword],
+    (err) => {
+      if (err) {
+        console.log(err);
+        res
+          .status(500)
+          .send("user not created");
+      } else {
+        res.status(200).send("user created");
+      }
+    }
+  );
+});
 
 // router.get("/:id/playlist", (req, res) => {
 //   connection.query(
@@ -68,22 +71,22 @@ router.get("/", (req, res) => {
 //   );
 // });
 
-// router.put("/:id", (req, res) => {
-//   const newMusic = req.body;
-//   const idMusic = req.params.id;
+router.put("/:id", (req, res) => {
+  const newUser = req.body;
+  const idUser= req.params.id;
 
-//   connection.query(
-//     "UPDATE track SET ? WHERE id = ?",
-//     [newMusic, idMusic],
-//     (err) => {
-//       if (err) {
-//         console.log(err);
-//         res.status(500).send("error updating music");
-//       } else {
-//         res.status(200).send("music successfully updated");
-//       }
-//     }
-//   );
-// });
+  connection.query(
+    "UPDATE user SET ? WHERE id = ?",
+    [newUser, idUser],
+    (err) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send("error updating user");
+      } else {
+        res.status(200).send("user successfully updated");
+      }
+    }
+  );
+});
 
 module.exports = router;
