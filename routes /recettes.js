@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../config");
+const { route } = require("./users");
 
 router.get("/", (req, res) => {
   connection.query("SELECT * FROM recette", (err, results) => {
@@ -10,6 +11,22 @@ router.get("/", (req, res) => {
       res.json(results);
     }
   });
+});
+
+router.post("/", (req, res) => {
+  const { category, name, time, date, image, ingredients, tools } = req.body;
+  connection.query(
+    "INSERT INTO recette (category, name, time, date, image, ingredients, tools) VALUES(?, ?, ?, ?, ?, ?, ?)",
+    [category, name, time, date, image, ingredients, tools],
+    (err) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send("erreur");
+      } else {
+        res.status(200).send("live recette programmé");
+      }
+    }
+  );
 });
 
 // router.get("/:id", (req, res) => {
