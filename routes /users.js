@@ -1,16 +1,71 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const connection = require("../config");
+const connection = require('../config');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-//GET
-router.get("/", (req, res) => {
-  connection.query("SELECT * FROM user", (err, results) => {
-    if (err) {
-      res.sendStatus(500);
-    } else {
-      res.json(results);
-    }
-  });
+/**
+ * Get all users
+ */
+router.get('/', (req, res) => {
+    connection.query('SELECT * FROM user', (err, results) => {
+        if (err) {
+            res.sendStatus(500);
+        } else {
+            res.json(results);
+        }
+    });
+});
+
+/**
+ * Add new user
+ */
+router.post('/', (req, res) => {
+    const { firstname, lastname, email, password } = req.body;
+    const passwordHash = bcrypt.hashSync(password, 10);
+
+    connection.query(
+        'INSERT INTO user (firstname, lastname, email, password) VALUES(?, ?, ?, ?)',
+        [firstname, lastname, email, passwordHash],
+        (err) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send('error with the user');
+            } else {
+                res.status(200).send('user saved with success');
+            }
+        }
+    );
+});
+
+router.post('/login', (req, res) => {
+    const { email, password } = req.body;
+
+    connection.query(
+        'SELECT * FROM user WHERE email = ?',
+        [email],
+        (err, result) => {
+            if (err) {
+                res.sendStatus(500);
+            } else {
+                const goodPassword = bcrypt.compareSync(
+                    password,
+                    result[0].password
+                );
+                if (goodPassword) {
+                    jwt.sign(
+                        { result },
+                        process.env.SECRET_KEY_JWT,
+                        (err, token) => {
+                            res.json({ token });
+                        }
+                    );
+                } else {
+                    res.sendStatus(500);
+                }
+            }
+        }
+    );
 });
 
 
