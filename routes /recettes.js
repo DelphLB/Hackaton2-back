@@ -28,6 +28,19 @@ router.post("/", (req, res) => {
   );
 });
 
+router.delete("/:id", (req, res) => {
+  const recette = req.params.id;
+  connection.query("DELETE FROM recette WHERE id=?", [recette], (err) => {
+    if (err) {
+      res.status(500).send("No, recette still there");
+    } else {
+      res.status(200).send("ciao la recette");
+    }
+  });
+});
+
+
+
 // router.get("/:id", (req, res) => {
 //   const id = req.params.id;
 //   connection.query(
@@ -74,16 +87,7 @@ router.post("/", (req, res) => {
 //   );
 // });
 
-// router.delete("/:id", (req, res) => {
-//   const playlist = req.params.id;
-//   connection.query("DELETE FROM playlist WHERE id=?", [playlist], (err) => {
-//     if (err) {
-//       res.status(500).send("Nope, the playlist is still there");
-//     } else {
-//       res.status(200).send("ciao playlist");
-//     }
-//   });
-// });
+
 
 // router.put("/:id", (req, res) => {
 //   const newPl = req.body;
