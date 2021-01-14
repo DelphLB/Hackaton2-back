@@ -46,7 +46,7 @@ router.post('/login', (req, res) => {
         [email],
         (err, result) => {
             if (err) {
-                res.sendStatus(500);
+                res.status(500).send(err);
             } else {
                 const goodPassword = bcrypt.compareSync(
                     password,
@@ -61,7 +61,7 @@ router.post('/login', (req, res) => {
                         }
                     );
                 } else {
-                    res.sendStatus(500);
+                    res.status(500).send('mot de passe incorrect');
                 }
             }
         }
@@ -115,7 +115,6 @@ router.put('/:id', (req, res) => {
         [newUser, idUser],
         (err) => {
             if (err) {
-                console.log(err);
                 res.status(500).send('error updating user');
             } else {
                 res.status(200).send('user successfully updated');
