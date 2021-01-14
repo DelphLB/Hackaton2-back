@@ -68,7 +68,6 @@ router.post('/login', (req, res) => {
     );
 });
 
-
 // router.get("/:id/playlist", (req, res) => {
 //   connection.query(
 //     "SELECT * FROM track LEFT JOIN playlist ON track.playlist_id=playlist.id WHERE playlist.id=?",
@@ -107,22 +106,22 @@ router.post('/login', (req, res) => {
 //   );
 // });
 
-router.put("/:id", (req, res) => {
-  const newUser = req.body;
-  const idUser= req.params.id;
+router.put('/:id', (req, res) => {
+    const newUser = req.body;
+    const idUser = req.params.id;
 
-  connection.query(
-    "UPDATE user SET ? WHERE id = ?",
-    [newUser, idUser],
-    (err) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send("error updating user");
-      } else {
-        res.status(200).send("user successfully updated");
-      }
-    }
-  );
+    connection.query(
+        'UPDATE user SET ? WHERE id = ?',
+        [newUser, idUser],
+        (err) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send('error updating user');
+            } else {
+                res.status(200).send('user successfully updated');
+            }
+        }
+    );
 });
 
 module.exports = router;
