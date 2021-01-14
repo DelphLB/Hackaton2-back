@@ -68,25 +68,6 @@ router.post('/login', (req, res) => {
     );
 });
 
-// //POST
-// router.post("/", (req, res) => {
-//   const { firstname, lastname, email, password} = req.body;
-//   connection.query(
-//     "INSERT INTO user (firstname, lastname, email, password) VALUES(?,?,?,?)",
-//     [firstname, lastname, email, password],
-//     (err) => {
-//       if (err) {
-//         console.log(err);
-//         res
-//           .status(500)
-//           .send("user not created");
-//       } else {
-//         res.status(200).send("user created");
-//       }
-//     }
-//   );
-// });
-
 // router.get("/:id/playlist", (req, res) => {
 //   connection.query(
 //     "SELECT * FROM track LEFT JOIN playlist ON track.playlist_id=playlist.id WHERE playlist.id=?",
