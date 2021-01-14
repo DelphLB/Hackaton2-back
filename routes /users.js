@@ -68,25 +68,24 @@ router.post('/login', (req, res) => {
     );
 });
 
-
-//POST
-router.post("/", (req, res) => {
-  const { firstname, lastname, email, password} = req.body;
-  connection.query(
-    "INSERT INTO user (firstname, lastname, email, password) VALUES(?,?,?,?)",
-    [firstname, lastname, email, password],
-    (err) => {
-      if (err) {
-        console.log(err);
-        res
-          .status(500)
-          .send("user not created");
-      } else {
-        res.status(200).send("user created");
-      }
-    }
-  );
-});
+// //POST
+// router.post("/", (req, res) => {
+//   const { firstname, lastname, email, password} = req.body;
+//   connection.query(
+//     "INSERT INTO user (firstname, lastname, email, password) VALUES(?,?,?,?)",
+//     [firstname, lastname, email, password],
+//     (err) => {
+//       if (err) {
+//         console.log(err);
+//         res
+//           .status(500)
+//           .send("user not created");
+//       } else {
+//         res.status(200).send("user created");
+//       }
+//     }
+//   );
+// });
 
 // router.get("/:id/playlist", (req, res) => {
 //   connection.query(
@@ -126,22 +125,22 @@ router.post("/", (req, res) => {
 //   );
 // });
 
-router.put("/:id", (req, res) => {
-  const newUser = req.body;
-  const idUser= req.params.id;
+router.put('/:id', (req, res) => {
+    const newUser = req.body;
+    const idUser = req.params.id;
 
-  connection.query(
-    "UPDATE user SET ? WHERE id = ?",
-    [newUser, idUser],
-    (err) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send("error updating user");
-      } else {
-        res.status(200).send("user successfully updated");
-      }
-    }
-  );
+    connection.query(
+        'UPDATE user SET ? WHERE id = ?',
+        [newUser, idUser],
+        (err) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send('error updating user');
+            } else {
+                res.status(200).send('user successfully updated');
+            }
+        }
+    );
 });
 
 module.exports = router;
