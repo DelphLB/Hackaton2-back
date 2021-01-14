@@ -16,10 +16,10 @@ router.get("/", (req, res) => {
 
 //POST
 router.post("/", (req, res) => {
-  const { firstname, lastname, email, pasword} = req.body;
+  const { firstname, lastname, email, password} = req.body;
   connection.query(
-    "INSERT INTO user (firstname, lastname, email, pasword) VALUES(?,?,?,?)",
-    [firstname, lastname, email, pasword],
+    "INSERT INTO user (firstname, lastname, email, password) VALUES(?,?,?,?)",
+    [firstname, lastname, email, password],
     (err) => {
       if (err) {
         console.log(err);
