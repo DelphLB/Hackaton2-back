@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   const { category, name, time, date, image, ingredients, tools, chef, level, people, prepationtime } = req.body;
   connection.query(
-    "INSERT INTO recette (category, name, time, date, image, ingredients, tools) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    "INSERT INTO recette (category, name, time, date, image, ingredients, tools, chef, level, people, prepationtime) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     [category, name, time, date, image, ingredients, tools, chef, level, people, prepationtime ],
     (err) => {
       if (err) {
