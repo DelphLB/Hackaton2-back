@@ -13,10 +13,10 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const { category, name, time, date, image, ingredients, tools, chef, level, people, prepationtime } = req.body;
+  const { category, name, time, date, image, ingredients, tools, chef, level, people, preparationtime } = req.body;
   connection.query(
-    "INSERT INTO recette (category, name, time, date, image, ingredients, tools, chef, level, people, prepationtime) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-    [category, name, time, date, image, ingredients, tools, chef, level, people, prepationtime ],
+    "INSERT INTO recette (category, name, time, date, image, ingredients, tools, chef, level, people, preparationtime) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    [category, name, time, date, image, ingredients, tools, chef, level, people, preparationtime ],
     (err) => {
       if (err) {
         console.log(err);
